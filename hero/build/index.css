@@ -1,5 +1,3 @@
-.wp-block-space-rocket-blocks-hero{
-  --tw-bg-opacity:1;
-  background-color:rgba(236, 72, 153, var(--tw-bg-opacity));
-  border:1px dotted red
+.wp-block{
+  max-width:unset
 }

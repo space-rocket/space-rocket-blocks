@@ -1,12 +1,44 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
-
-.wp-block-space-rocket-blocks-hero {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+@tailwind base;
+@tailwind components;
+.wp-block-create-block-hero {
+    position: relative;
 }
+.hero.container {
+  @apply lg:relative mx-auto;
+  .content-inner {
+    @apply px-4 lg:w-1/2 sm:px-8 xl:pr-16;
+  }
+  .row {
+    @apply mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left;
+  }
+  .title {
+    @apply text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl;
+  }
+  .featured {
+    @apply relative w-full h-64 sm:h-72 md:h-72 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full;
+  }
+  .featured-image {
+    @apply absolute inset-0 w-full h-full object-cover m-0;
+  }
+  .btn-group {
+    @apply mt-10 sm:flex sm:justify-center lg:justify-start;
+  }
+  .btn-primary {
+    @apply rounded-md shadow;
+    @apply bg-indigo-600 hover:bg-indigo-700 text-white;
+  }
+  .btn-primary:not(:nth-of-type(1)) {
+    @apply mt-3 rounded-md shadow sm:mt-0 sm:ml-3;
+  }
+  .btn-primary a {
+    @apply w-full flex items-center justify-center;
+    @apply border border-transparent rounded-md;
+    @apply px-8 md:px-10 py-3 md:py-4;
+    @apply text-base font-medium md:text-lg text-gray-100 no-underline;
+  }
+}
+.content {
+  @apply mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left;
+}
+
+@tailwind utilities;
