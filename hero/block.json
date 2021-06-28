@@ -1,0 +1,15 @@
+{
+	"apiVersion": 2,
+	"name": "space-rocket-blocks/hero",
+	"title": "Hero",
+	"category": "space-rocket-blocks",
+	"icon": "smiley",
+	"description": "For when you need a hero",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "hero",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
