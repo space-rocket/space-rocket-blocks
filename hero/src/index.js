@@ -19,13 +19,16 @@ import './style.scss';
  */
 import Edit from './edit';
 import save from './save';
+import metadata from '../block.json';
 
+const { attributes } = metadata;
 /**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType( 'space-rocket-blocks/hero', {
+    attributes,
 	/**
 	 * @see ./edit.js
 	 */

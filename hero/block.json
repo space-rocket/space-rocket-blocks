@@ -5,6 +5,20 @@
 	"category": "space-rocket-blocks",
 	"icon": "smiley",
 	"description": "For when you need a hero",
+	"attributes": {
+		"headingContent": {
+			"type": "string",
+			"source": "text",
+			"selector": "h1",
+			"default": "How to build custom React Gutenberg Blocks"
+		},
+		"textContent": {
+			"type": "string",
+			"source": "text",
+			"selector": "p",
+			"default": "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua."
+		}
+	},
 	"supports": {
 		"html": false
 	},

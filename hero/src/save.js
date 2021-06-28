@@ -22,14 +22,16 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @return {WPElement} Element to render.
  */
-export default function save() {
-	return (
+export default function save({attributes}) {
+    const { headingContent, textContent} = attributes;
+	
+    return (
         <div { ...useBlockProps.save() }>
             <div className="hero container">
                 <div className="content-inner">
                     <div className="content">
-                        <h2>How to build custom React Gutenberg Blocks</h2>
-                        <p>Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+                        <RichText.Content className="title" tagName="h2" value={ headingContent } />
+                        <RichText.Content tagName="p" value={ textContent } />
                         <div className="btn-group relative">
                             <div className="btn-primary">
                                 <a className="btn-text" href="#">Get Started</a>

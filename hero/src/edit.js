@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -29,14 +29,23 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit() {
+export default function Edit({attributes, setAttributes}) {
 	return (
 		<div { ...useBlockProps() }>
             <div className="hero container">
                 <div className="content-inner">
                     <div className="content">
-                        <h2>How to build custom React Gutenberg Blocks</h2>
-                        <p>Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+                        <RichText
+                            className="title"
+                            tagName="h2"
+                            value={ attributes.headingContent }
+                            onChange={(val) => setAttributes({headingContent: val})}
+                        />
+                        <RichText
+                            tagName="p"
+                            value={ attributes.textContent }
+                            onChange={(val) => setAttributes({textContent: val})}
+                        />
                         <div className="btn-group relative">
                             <div className="btn-primary">
                                 <a className="btn-text" href="#">Get Started</a>
