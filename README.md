@@ -272,7 +272,7 @@ INSERT IMAGE add-markup.png
 ### Add RichText fields
 
 Add attributes
-```javascript
+```json
 # hero/block.json
 {
   "attributes": {
