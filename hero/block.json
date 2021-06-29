@@ -28,6 +28,15 @@
 			    "text": "<a href=\"#\">Read Tutorial</a>"
 			  }
 			]
+		},
+		"featuredImageID": {
+			"type": "number"
+		},
+		"featuredImageURL": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "img",
+			"attribute": "src"
 		}
 	},
 	"supports": {

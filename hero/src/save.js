@@ -23,7 +23,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save({attributes}) {
-    const { headingContent, textContent, buttons} = attributes;
+    const { headingContent, textContent, buttons, featuredImage} = attributes;
 
     const buttonFields = buttons.map( ( button, index ) => {    
         return <div key={ index } className="btn-primary">
@@ -43,7 +43,7 @@ export default function save({attributes}) {
                         </div>
                     </div>
                     <div className="featured">
-                        <img className="featured-image" alt="Marshall's Beach, San Francisco, United States by Natalie Chaneye" title="Marshall's Beach, San Francisco, United States by Natalie Chaney" src="https://source.unsplash.com/KQVX1_pYpsA/1600x900"/>
+                        <img className="featured-image" alt={featuredImage.alt} title={featuredImage.title} src={featuredImage.url} />
                     </div>
                 </div>
             </div>

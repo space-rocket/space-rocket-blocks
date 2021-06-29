@@ -11,8 +11,8 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps, RichText } from '@wordpress/block-editor';
-import { IconButton  } from '@wordpress/components';
+import { useBlockProps, RichText, MediaUpload } from '@wordpress/block-editor';
+import { Button, IconButton  } from '@wordpress/components';
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -31,6 +31,14 @@ import './editor.scss';
  */
 export default function Edit({attributes, setAttributes}) {
     let buttonFields, addButton
+
+    const onSelectFeaturedImage = function( featuredImage ) {
+        return setAttributes( {
+            featuredImage,
+            featuredImageURL: featuredImage.url,
+            featuredImageID: featuredImage.id
+        } );
+    };
 
     if ( attributes.buttons.length ) {
         buttonFields = attributes.buttons.map( ( button, index ) => {
@@ -100,9 +108,22 @@ export default function Edit({attributes, setAttributes}) {
                             {addButton}
                         </div>
                     </div>
-                    <div className="featured">
-                        <img className="featured-image" alt="Marshall's Beach, San Francisco, United States by Natalie Chaneye" title="Marshall's Beach, San Francisco, United States by Natalie Chaney" src="https://source.unsplash.com/KQVX1_pYpsA/1600x900"/>
-                    </div>
+                    <MediaUpload
+                        label={__('FeaturedImage', 'hero')}
+                        onSelect={onSelectFeaturedImage}
+                        allowedTypes={'image'}
+                        value={ attributes.featuredImageID }
+                        render={({open}) => (
+                            ! attributes.featuredImageID ? 
+                                <div className="featured bg-gray-100">
+                                    <Button className="absolute top-1/2 left-0 right-0 mx-auto btn-primary" onClick={open}>Open Media Library</Button>
+                                </div> : 
+                                <div className="featured bg-gray-100">
+                                    <img className="featured-image" src={attributes.featuredImageURL} />
+                                    <Button className="absolute top-1/2 left-0 right-0 mx-auto btn-primary bg-pink-500" onClick={open}>Open Media Library</Button>
+                                </div>  
+                        )}
+                    />
                 </div>
             </div>
 		</div>
