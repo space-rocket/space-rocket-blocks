@@ -129,7 +129,7 @@ module.exports = {
 @tailwind base;
 @tailwind components;
 
-// Put you styles here...
+// Put your styles here...
 .wp-block-space-rocket-blocks-hero {
   @apply bg-pink-500;
   border: 1px dotted #f00;
@@ -158,9 +158,8 @@ npm run build
 ### Add markup
 
 
-```javascript
+```jsx
 # hero/src/edit.js
-...
 export default function Edit() {
   return (
     <div { ...useBlockProps() }>
@@ -188,9 +187,8 @@ export default function Edit() {
 }
 ```
 
-```javascript
+```jsx
 # hero/src/save.js
-...
 export default function save() {
   return (
         <div { ...useBlockProps.save() }>
@@ -277,7 +275,6 @@ Add attributes
 ```javascript
 # hero/block.json
 {
-  ...
   "attributes": {
     "headingContent": {
       "type": "string",
@@ -292,7 +289,6 @@ Add attributes
       "default": "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua."
     },
   },
-  ...
 }
 
 ```
@@ -302,19 +298,18 @@ Import attributes into index.js
 /**
  * Internal dependencies
  */
-...
 import metadata from '../block.json';
 
 const { attributes } = metadata;
-...
+
 registerBlockType( 'space-rocket-blocks/hero', {
-    attributes,
-  ...
+    attributes
+    ...
 } );
 ```
 
 
-```javascript
+```jsx
 # hero/src/edit.js
 ...
 import { useBlockProps, RichText } from '@wordpress/block-editor';
@@ -322,7 +317,7 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
 export default function Edit({attributes, setAttributes}) {
   return (
     <div { ...useBlockProps() }>
-            ...
+          
                     <div className="content">
                         <RichText
                             className="title"
@@ -335,14 +330,14 @@ export default function Edit({attributes, setAttributes}) {
                             value={ attributes.textContent }
                             onChange={(val) => setAttributes({textContent: val})}
                         />
-                        ...
+                  
                     </div>
-            ...
+            
   );
 }
 ```
 
-```javascript
+```jsx
 # hero/src/save.js
 ...
 export default function save({attributes}) {
@@ -403,7 +398,7 @@ export default function save({attributes}) {
 
 Add button fields and functions
 
-```javascript
+```jsx
 # hero/src/edit.js
 ...
 import { IconButton  } from '@wordpress/components';
@@ -475,7 +470,7 @@ export default function Edit({attributes, setAttributes}) {
 
 Update save.js with dynamic buttons
 
-```javascript
+```jsx
 # hero/src/save.js
 ...
 export default function save({attributes}) {
@@ -523,7 +518,7 @@ add attributes
 
 ```
 
-```javascript
+```jsx
 # hero/src/edit.js
 
 ...
@@ -568,7 +563,7 @@ export default function Edit({attributes, setAttributes}) {
 
 Update save.js
 
-```javascript
+```jsx
 # hero/src/save.js
 ...
 export default function save({attributes}) {
