@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import { useBlockProps, RichText } from '@wordpress/block-editor';
-
+import { IconButton  } from '@wordpress/components';
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -30,6 +30,55 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 export default function Edit({attributes, setAttributes}) {
+    let buttonFields, addButton
+
+    if ( attributes.buttons.length ) {
+        buttonFields = attributes.buttons.map( ( button, index ) => {
+            return <Fragment key={ index }>
+                <RichText
+                    className="btn-primary"
+                    value={ button.text }
+                    onChange={ (text) => handleButtonChange(text, index) }
+                />
+                <IconButton
+                    className="sr__remove-button-text "
+                    icon="minus"
+                    label="Delete button"
+                    onClick={ () => handleRemoveButton( index ) }
+                />
+            </Fragment>;
+        } );
+    }
+
+    if ( attributes.buttons.length > 1 ) {
+        addButton = '';
+    } else {
+        addButton = <IconButton
+            isDefault
+            className="sr__add-button-text "
+            icon="plus"
+            label="Add button"
+            onClick={ () => handleAddButton() }
+        />;
+    }
+    const handleAddButton = () => {
+        const buttons = [ ...attributes.buttons ];
+        buttons.push( {
+            text: '',
+        } );
+        setAttributes( { buttons } );
+    };
+    const handleRemoveButton = ( index ) => {
+        const buttons = [ ...attributes.buttons ];
+        buttons.splice( index, 1 );
+        setAttributes( { buttons } );
+    };
+    const handleButtonChange = ( text, index ) => {
+        const buttons = [ ...attributes.buttons ];
+        buttons[ index ].text = text;
+        setAttributes( { buttons } );
+    };
+
 	return (
 		<div { ...useBlockProps() }>
             <div className="hero container">
@@ -46,13 +95,9 @@ export default function Edit({attributes, setAttributes}) {
                             value={ attributes.textContent }
                             onChange={(val) => setAttributes({textContent: val})}
                         />
-                        <div className="btn-group relative">
-                            <div className="btn-primary">
-                                <a className="btn-text" href="#">Get Started</a>
-                            </div>
-                            <div className="btn-primary">
-                                <a className="btn-text" href="#">Read Tutorial</a>
-                            </div>
+                        <div className="btn-group">
+                            { buttonFields }
+                            {addButton}
                         </div>
                     </div>
                     <div className="featured">

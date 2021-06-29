@@ -23,8 +23,14 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save({attributes}) {
-    const { headingContent, textContent} = attributes;
-	
+    const { headingContent, textContent, buttons} = attributes;
+
+    const buttonFields = buttons.map( ( button, index ) => {    
+        return <div key={ index } className="btn-primary">
+            <RichText.Content className="btn-text" value={ button.text } />
+        </div>;
+    });
+
     return (
         <div { ...useBlockProps.save() }>
             <div className="hero container">
@@ -33,12 +39,7 @@ export default function save({attributes}) {
                         <RichText.Content className="title" tagName="h2" value={ headingContent } />
                         <RichText.Content tagName="p" value={ textContent } />
                         <div className="btn-group relative">
-                            <div className="btn-primary">
-                                <a className="btn-text" href="#">Get Started</a>
-                            </div>
-                            <div className="btn-primary">
-                                <a className="btn-text" href="#">Read Tutorial</a>
-                            </div>
+                            { buttonFields }
                         </div>
                     </div>
                     <div className="featured">
