@@ -4,9 +4,29 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-
-.wp-block-space-rocket-blocks-page {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+.block-page {
+  background-color: #21759b;
+  color: #fff;
+  padding: 2px;
+  .container {
+    width: 80%;
+    max-width: 840px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 33.33333%;
+  }
+  .page-header {
+    grid-column: 1/3;
+  }
+  .page-content {
+    grid-column: 1/2;
+    grid-row: 2;
+  }
+  aside {
+    grid-column: 2/3;
+    grid-row: 2;
+  }
 }
+
+
+

@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -20,6 +20,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 import './editor.scss';
+import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -31,8 +32,19 @@ import './editor.scss';
  */
 export default function Edit() {
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Page – hello from the editor!', 'page' ) }
-		</p>
+		<article { ...useBlockProps() } className="block-page">
+      <div className="container">
+        <header className="page-header">
+          <h1>My Awesome Page</h1>
+          <MyAuthorsListBase/> 
+        </header>
+        <div className="page-content">
+          <InnerBlocks/>
+        </div>
+        <aside>
+          TOC HERE
+        </aside>
+      </div>
+		</article>
 	);
 }
