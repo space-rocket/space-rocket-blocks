@@ -1,16 +1,16 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "space-rocket-blocks/page",
+  "name": "space-rocket-blocks/section",
   "version": "0.1.0",
-  "title": "Page",
+  "title": "Section",
   "category": "space-rocket-blocks",
   "icon": "smiley",
-  "description": "Basic page with Toc Sections",
+  "description": "Basic section that displays in a TOC",
   "supports": {
     "html": false
   },
-  "textdomain": "page",
+  "textdomain": "section",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",

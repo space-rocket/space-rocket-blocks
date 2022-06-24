@@ -17,14 +17,21 @@
   }
   .page-header {
     grid-column: 1/3;
+    background: green;
+  }
+  .page-author {
+    display: grid;
+    grid-template-columns: auto auto auto auto; 
   }
   .page-content {
     grid-column: 1/2;
     grid-row: 2;
+    background: gray;
   }
   aside {
     grid-column: 2/3;
     grid-row: 2;
+    background: lightBlue;
   }
 }
 

@@ -7,35 +7,10 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.block-page {
+.wp-block-space-rocket-blocks-section {
   background-color: #21759b;
   color: #fff;
   padding: 2px;
-}
-.block-page .container {
-  width: 80%;
-  max-width: 840px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 33.33333%;
-}
-.block-page .page-header {
-  grid-column: 1/3;
-  background: green;
-}
-.block-page .page-author {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-}
-.block-page .page-content {
-  grid-column: 1/2;
-  grid-row: 2;
-  background: gray;
-}
-.block-page aside {
-  grid-column: 2/3;
-  grid-row: 2;
-  background: lightBlue;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

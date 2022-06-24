@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -22,6 +22,10 @@ import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import './editor.scss';
 import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
 
+const TEMPLATE = [
+    [ 'core/heading', { placeholder: 'Page Title...' } ],
+    [ 'core/paragraph', { placeholder: 'Page Content...' } ],
+];
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -30,15 +34,33 @@ import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit() {
+export default function Edit({ attributes, setAttributes }) {
 	return (
 		<article { ...useBlockProps() } className="block-page">
       <div className="container">
         <header className="page-header">
-          <h1>My Awesome Page</h1>
-          <MyAuthorsListBase/> 
+          <RichText
+              tagName="h2"
+              value={ attributes.title } 
+              allowedFormats={ [] }
+              onChange={ ( title ) => setAttributes( { title } ) } 
+              placeholder={ __( 'My Awesome Page' ) } 
+          />
         </header>
         <div className="page-content">
+          <div className="page-meta">
+            <div className="page-author">
+              <div className="author-avatar">
+                 <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y" />
+              </div>
+              <div className="author-name">
+                 <MyAuthorsListBase/> 
+              </div>
+              <div className="published-date">
+                <time datetime="" class="page-date">Thursday, June 23, 2022</time>
+              </div>
+            </div>
+          </div>
           <InnerBlocks/>
         </div>
         <aside>
