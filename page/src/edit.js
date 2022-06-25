@@ -22,7 +22,6 @@ import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
  */
 import './editor.scss';
 import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
-import SidebarTOC from '../../shared/SidebarTOC.js'
 import GetSections from '../../shared/GetSections.js'
 
 const TEMPLATE = [
@@ -40,20 +39,25 @@ const TEMPLATE = [
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-  let sections;
+  let toc, section_links;
 
   setAttributes({
     sections: GetSections()
   })
 
   if(attributes.sections.length) {
-    sections = attributes.sections.map((section, key) => {
+    console.log("attributes.sections: ", attributes.sections)
+    section_links = attributes.sections.map((section, key) => {
       return <Fragment key={key}>
         <li>{section.attributes.title}</li>
       </Fragment>
     })
+    toc = <Fragment key="toc">
+      <ul>{section_links}</ul>
+    </Fragment>;
   } else {
-    sections = '';
+    section_links = '';
+    toc = '';
   }
   
 	return (
@@ -85,7 +89,7 @@ export default function Edit({ attributes, setAttributes }) {
           <InnerBlocks/>
         </div>
         <aside>
-          <ul>{sections}</ul>
+          {toc}
         </aside>
       </div>
 		</article>

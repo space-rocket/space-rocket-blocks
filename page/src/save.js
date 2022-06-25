@@ -14,7 +14,6 @@ import { useEffect, Fragment } from '@wordpress/element';
  */
 import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
 import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
-import SidebarTOC from '../../shared/SidebarTOC.js'
 
 /**
  * The save function defines the way in which the different attributes should
@@ -28,8 +27,7 @@ import SidebarTOC from '../../shared/SidebarTOC.js'
 export default function save({attributes}) {
   const {title} = attributes
   let sections;
-  // const blocks = SidebarTOC();
-  console.log("sections: ", sections)
+
   if(attributes.sections.length) {
     sections = attributes.sections.map((section, key) => {
       return <Fragment key={key}>
@@ -49,7 +47,7 @@ export default function save({attributes}) {
       />
       <p>Inner Blocks:</p>
 			<InnerBlocks.Content/>
-      <p>SidebarTOC:</p>
+      <p>Sections(sidebar):</p>
       <ul>{sections}</ul>
 		</div>
 	);
