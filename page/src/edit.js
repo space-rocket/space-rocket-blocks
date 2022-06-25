@@ -21,6 +21,7 @@ import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
  */
 import './editor.scss';
 import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
+import SidebarTOC from '../../shared/SidebarTOC.js'
 
 const TEMPLATE = [
     [ 'core/heading', { placeholder: 'Page Title...' } ],
@@ -35,6 +36,9 @@ const TEMPLATE = [
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
+
+  const blocks = SidebarTOC();
+  console.log("blocks: ", blocks) 
 	return (
 		<article { ...useBlockProps() } className="block-page">
       <div className="container">
@@ -64,7 +68,12 @@ export default function Edit({ attributes, setAttributes }) {
           <InnerBlocks/>
         </div>
         <aside>
-          TOC HERE
+          <p>hey</p>
+          <ul>
+              { blocks.map( ( block ) => (
+                  <li key={ block.id }>{ block.attributes.title }</li>
+              ) ) }
+          </ul>
         </aside>
       </div>
 		</article>

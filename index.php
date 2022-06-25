@@ -15,6 +15,7 @@
 
 // require_once __DIR__ . '/hero/index.php';
 require_once __DIR__ . '/page/page.php';
+require_once __DIR__ . '/section/section.php';
 
 // Add space-rocket-block category
 function space_rocket_blocks_categories( $categories, $post ) {
@@ -33,7 +34,7 @@ add_filter( 'block_categories', 'space_rocket_blocks_categories', 10, 2 );
 
 // Remove all other blocks and only use the ones listed below
 function space_rocket_blocks_allowed_block_types( $allowed_block_types, $post ) {
-    return array( 'core/paragraph', 'space-rocket-blocks/hero', 'space-rocket-blocks/page' );
+    return array( 'core/paragraph', 'core/paragraph', 'space-rocket-blocks/hero', 'space-rocket-blocks/page', 'space-rocket-blocks/section' );
 }
  
 add_filter( 'allowed_block_types', 'space_rocket_blocks_allowed_block_types', 10, 2 );

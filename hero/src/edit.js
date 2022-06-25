@@ -34,7 +34,7 @@ export default function Edit({attributes, setAttributes}) {
 
     const onSelectFeaturedImage = function( featuredImage ) {
         return setAttributes( {
-            featuredImage,
+            featuredImage: featuredImage,
             featuredImageURL: featuredImage.url,
             featuredImageID: featuredImage.id
         } );

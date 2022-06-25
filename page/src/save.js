@@ -12,6 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
+import SidebarTOC from '../../shared/SidebarTOC.js'
 
 /**
  * The save function defines the way in which the different attributes should
@@ -26,10 +27,12 @@ export default function save({attributes}) {
   const {title} = attributes
 	return (
 		<div { ...useBlockProps.save() }>
+      <p>Title:</p>
       <RichText.Content
           tagName="h2"
           value={title}  
       />
+      <p>Inner Blocks:</p>
 			<InnerBlocks.Content/>
 		</div>
 	);
