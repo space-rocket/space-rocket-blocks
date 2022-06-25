@@ -12,6 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
+import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
 import SidebarTOC from '../../shared/SidebarTOC.js'
 
 /**
@@ -24,8 +25,11 @@ import SidebarTOC from '../../shared/SidebarTOC.js'
  * @return {WPElement} Element to render.
  */
 export default function save({attributes}) {
-  const {title} = attributes
-	return (
+  const {title, sections} = attributes
+  // const blocks = SidebarTOC();
+  console.log("sections: ", sections)
+	
+  return (
 		<div { ...useBlockProps.save() }>
       <p>Title:</p>
       <RichText.Content
@@ -34,6 +38,8 @@ export default function save({attributes}) {
       />
       <p>Inner Blocks:</p>
 			<InnerBlocks.Content/>
+      <p>SidebarTOC:</p>
+      {/*<SidebarTOC/>*/}
 		</div>
 	);
 }

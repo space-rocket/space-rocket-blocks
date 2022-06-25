@@ -54,6 +54,7 @@ const TEMPLATE = [['core/heading', {
 }], ['core/paragraph', {
   placeholder: 'Page Content...'
 }]];
+console.log("SidebarTOC: ", _shared_SidebarTOC_js__WEBPACK_IMPORTED_MODULE_6__["default"]);
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -68,8 +69,6 @@ function Edit(_ref) {
     attributes,
     setAttributes
   } = _ref;
-  const blocks = (0,_shared_SidebarTOC_js__WEBPACK_IMPORTED_MODULE_6__["default"])();
-  console.log("blocks: ", blocks);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("article", (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)(), {
     className: "block-page"
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
@@ -101,9 +100,7 @@ function Edit(_ref) {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("time", {
     datetime: "",
     class: "page-date"
-  }, "Thursday, June 23, 2022")))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("aside", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("p", null, "hey"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("ul", null, blocks.map(block => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("li", {
-    key: block.id
-  }, block.attributes.title))))));
+  }, "Thursday, June 23, 2022")))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("aside", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_shared_SidebarTOC_js__WEBPACK_IMPORTED_MODULE_6__["default"], null))));
 }
 
 /***/ }),
@@ -179,7 +176,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _shared_SidebarTOC_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/SidebarTOC.js */ "../shared/SidebarTOC.js");
+/* harmony import */ var _shared_MyAuthorsListBase_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/MyAuthorsListBase.js */ "../shared/MyAuthorsListBase.js");
+/* harmony import */ var _shared_SidebarTOC_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/SidebarTOC.js */ "../shared/SidebarTOC.js");
 
 
 /**
@@ -194,6 +192,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
+
 
 
 
@@ -212,12 +211,15 @@ function save(_ref) {
     attributes
   } = _ref;
   const {
-    title
-  } = attributes;
+    title,
+    sections
+  } = attributes; // const blocks = SidebarTOC();
+
+  console.log("sections: ", sections);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Title:"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, {
     tagName: "h2",
     value: title
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Inner Blocks:"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, null));
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Inner Blocks:"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "SidebarTOC:"));
 }
 
 /***/ }),
@@ -266,12 +268,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ SidebarTOC)
 /* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
 const {
   useSelect
 } = wp.data;
 function SidebarTOC() {
   const blocks = useSelect(select => {
-    const data = select('core/editor').getBlocks();
+    const data = select('core/block-editor').getBlocks();
     const sections = data[0].innerBlocks.filter(block => {
       return block.name === "space-rocket-blocks/section";
     });
@@ -282,7 +287,9 @@ function SidebarTOC() {
     return null;
   }
 
-  return blocks;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, blocks.map(block => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+    key: block.id
+  }, block.attributes.title)));
 }
 
 /***/ }),

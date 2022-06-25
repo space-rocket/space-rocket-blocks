@@ -27,6 +27,8 @@ const TEMPLATE = [
     [ 'core/heading', { placeholder: 'Page Title...' } ],
     [ 'core/paragraph', { placeholder: 'Page Content...' } ],
 ];
+console.log("SidebarTOC: ", SidebarTOC)
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -37,8 +39,6 @@ const TEMPLATE = [
  */
 export default function Edit({ attributes, setAttributes }) {
 
-  const blocks = SidebarTOC();
-  console.log("blocks: ", blocks) 
 	return (
 		<article { ...useBlockProps() } className="block-page">
       <div className="container">
@@ -68,12 +68,7 @@ export default function Edit({ attributes, setAttributes }) {
           <InnerBlocks/>
         </div>
         <aside>
-          <p>hey</p>
-          <ul>
-              { blocks.map( ( block ) => (
-                  <li key={ block.id }>{ block.attributes.title }</li>
-              ) ) }
-          </ul>
+          <SidebarTOC/>
         </aside>
       </div>
 		</article>
