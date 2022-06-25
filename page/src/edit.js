@@ -5,6 +5,7 @@
  */
 import { __ } from '@wordpress/i18n';
 
+import { useEffect, Fragment } from '@wordpress/element';
 /**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
@@ -22,12 +23,13 @@ import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
 import './editor.scss';
 import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
 import SidebarTOC from '../../shared/SidebarTOC.js'
+import GetSections from '../../shared/GetSections.js'
 
 const TEMPLATE = [
     [ 'core/heading', { placeholder: 'Page Title...' } ],
     [ 'core/paragraph', { placeholder: 'Page Content...' } ],
 ];
-console.log("SidebarTOC: ", SidebarTOC)
+
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -38,7 +40,22 @@ console.log("SidebarTOC: ", SidebarTOC)
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
+  let sections;
 
+  setAttributes({
+    sections: GetSections()
+  })
+
+  if(attributes.sections.length) {
+    sections = attributes.sections.map((section, key) => {
+      return <Fragment key={key}>
+        <li>{section.attributes.title}</li>
+      </Fragment>
+    })
+  } else {
+    sections = '';
+  }
+  
 	return (
 		<article { ...useBlockProps() } className="block-page">
       <div className="container">
@@ -68,7 +85,7 @@ export default function Edit({ attributes, setAttributes }) {
           <InnerBlocks/>
         </div>
         <aside>
-          <SidebarTOC/>
+          <ul>{sections}</ul>
         </aside>
       </div>
 		</article>

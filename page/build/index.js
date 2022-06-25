@@ -22,6 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
 /* harmony import */ var _shared_MyAuthorsListBase_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/MyAuthorsListBase.js */ "../shared/MyAuthorsListBase.js");
 /* harmony import */ var _shared_SidebarTOC_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/SidebarTOC.js */ "../shared/SidebarTOC.js");
+/* harmony import */ var _shared_GetSections_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../shared/GetSections.js */ "../shared/GetSections.js");
 
 
 
@@ -30,6 +31,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
+
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -49,12 +51,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const TEMPLATE = [['core/heading', {
   placeholder: 'Page Title...'
 }], ['core/paragraph', {
   placeholder: 'Page Content...'
 }]];
-console.log("SidebarTOC: ", _shared_SidebarTOC_js__WEBPACK_IMPORTED_MODULE_6__["default"]);
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -69,6 +71,21 @@ function Edit(_ref) {
     attributes,
     setAttributes
   } = _ref;
+  let sections;
+  setAttributes({
+    sections: (0,_shared_GetSections_js__WEBPACK_IMPORTED_MODULE_7__["default"])()
+  });
+
+  if (attributes.sections.length) {
+    sections = attributes.sections.map((section, key) => {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+        key: key
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("li", null, section.attributes.title));
+    });
+  } else {
+    sections = '';
+  }
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("article", (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)(), {
     className: "block-page"
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
@@ -100,7 +117,7 @@ function Edit(_ref) {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("time", {
     datetime: "",
     class: "page-date"
-  }, "Thursday, June 23, 2022")))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("aside", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_shared_SidebarTOC_js__WEBPACK_IMPORTED_MODULE_6__["default"], null))));
+  }, "Thursday, June 23, 2022")))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("aside", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("ul", null, sections))));
 }
 
 /***/ }),
@@ -186,6 +203,7 @@ __webpack_require__.r(__webpack_exports__);
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
 
+
 /**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
@@ -211,15 +229,56 @@ function save(_ref) {
     attributes
   } = _ref;
   const {
-    title,
-    sections
-  } = attributes; // const blocks = SidebarTOC();
+    title
+  } = attributes;
+  let sections; // const blocks = SidebarTOC();
 
   console.log("sections: ", sections);
+
+  if (attributes.sections.length) {
+    sections = attributes.sections.map((section, key) => {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        key: key
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, section.attributes.title));
+    });
+  } else {
+    sections = '';
+  }
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Title:"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, {
     tagName: "h2",
     value: title
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Inner Blocks:"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "SidebarTOC:"));
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Inner Blocks:"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "SidebarTOC:"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, sections));
+}
+
+/***/ }),
+
+/***/ "../shared/GetSections.js":
+/*!********************************!*\
+  !*** ../shared/GetSections.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GetSections)
+/* harmony export */ });
+const {
+  useSelect
+} = wp.data;
+function GetSections() {
+  const sections = useSelect(select => {
+    const section_block = select('core/block-editor').getBlocks()[0].innerBlocks.filter(block => {
+      return block.name === "space-rocket-blocks/section";
+    });
+    return section_block;
+  }, []);
+
+  if (!sections) {
+    return null;
+  }
+
+  return sections;
 }
 
 /***/ }),
@@ -393,7 +452,7 @@ function _extends() {
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"space-rocket-blocks/page","version":"0.1.0","title":"Page","category":"space-rocket-blocks","icon":"smiley","description":"Basic page with Toc Sections","supports":{"html":false},"textdomain":"page","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"title":{"type":"string"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"space-rocket-blocks/page","version":"0.1.0","title":"Page","category":"space-rocket-blocks","icon":"smiley","description":"Basic page with Toc Sections","supports":{"html":false},"textdomain":"page","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"title":{"type":"string"},"sections":{"type":"array","default":[]}}}');
 
 /***/ })
 

@@ -4,6 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
+import { useEffect, Fragment } from '@wordpress/element';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -25,10 +26,20 @@ import SidebarTOC from '../../shared/SidebarTOC.js'
  * @return {WPElement} Element to render.
  */
 export default function save({attributes}) {
-  const {title, sections} = attributes
+  const {title} = attributes
+  let sections;
   // const blocks = SidebarTOC();
   console.log("sections: ", sections)
-	
+  if(attributes.sections.length) {
+    sections = attributes.sections.map((section, key) => {
+      return <Fragment key={key}>
+        <li>{section.attributes.title}</li>
+      </Fragment>
+    })
+  } else {
+    sections = '';
+  }
+
   return (
 		<div { ...useBlockProps.save() }>
       <p>Title:</p>
@@ -39,7 +50,7 @@ export default function save({attributes}) {
       <p>Inner Blocks:</p>
 			<InnerBlocks.Content/>
       <p>SidebarTOC:</p>
-      {/*<SidebarTOC/>*/}
+      <ul>{sections}</ul>
 		</div>
 	);
 }
