@@ -23,12 +23,8 @@ import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
 import './editor.scss';
 import MyAuthorsListBase from '../../shared/MyAuthorsListBase.js'
 import GetSections from '../../shared/GetSections.js'
-
-const TEMPLATE = [
-    [ 'core/heading', { placeholder: 'Page Title...' } ],
-    [ 'core/paragraph', { placeholder: 'Page Content...' } ],
-];
-
+import GetAuthor from '../../shared/GetAuthor.js'
+import SidebarTOC from '../../shared/SidebarTOC.js';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -39,27 +35,11 @@ const TEMPLATE = [
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-  let toc, section_links;
-
   setAttributes({
-    sections: GetSections()
+    sections: GetSections(),
+    author: GetAuthor()
   })
 
-  if(attributes.sections.length) {
-    console.log("attributes.sections: ", attributes.sections)
-    section_links = attributes.sections.map((section, key) => {
-      return <Fragment key={key}>
-        <li>{section.attributes.title}</li>
-      </Fragment>
-    })
-    toc = <Fragment key="toc">
-      <ul>{section_links}</ul>
-    </Fragment>;
-  } else {
-    section_links = '';
-    toc = '';
-  }
-  
 	return (
 		<article { ...useBlockProps() } className="block-page">
       <div className="container">
@@ -89,7 +69,9 @@ export default function Edit({ attributes, setAttributes }) {
           <InnerBlocks/>
         </div>
         <aside>
-          {toc}
+          <SidebarTOC
+            sections={ attributes.sections }
+          />
         </aside>
       </div>
 		</article>
