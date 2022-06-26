@@ -13,6 +13,8 @@ import { __ } from '@wordpress/i18n';
  */
 import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
 
+import Slugify from '../../shared/Slugify.js';
+
 /**
  * The save function defines the way in which the different attributes should
  * be combined into the final markup, which is then serialized by the block
@@ -27,6 +29,8 @@ export default function save({attributes}) {
 	return (
 		<section { ...useBlockProps.save() }>
       <RichText.Content
+        tagName="h3"
+        id={Slugify(attributes.title)}
         value={ attributes.title } 
       />
       <InnerBlocks.Content/>

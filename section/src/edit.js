@@ -21,9 +21,8 @@ import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
-const TEMPLATE = [
-    [ 'core/paragraph', { placeholder: 'Section Content...' } ],
-];
+import Slugify from '../../shared/Slugify.js';
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -36,7 +35,8 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <section { ...useBlockProps() }>
       <RichText
-          tagName="h2"
+          tagName="h3"
+          id={ attributes.title ? Slugify(attributes.title) : null}
           value={ attributes.title } 
           allowedFormats={ [] }
           onChange={ ( title ) => setAttributes( { title } ) } 

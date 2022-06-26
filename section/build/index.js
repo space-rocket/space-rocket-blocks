@@ -19,6 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _shared_Slugify_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/Slugify.js */ "../shared/Slugify.js");
 
 
 /**
@@ -43,9 +44,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-const TEMPLATE = [['core/paragraph', {
-  placeholder: 'Section Content...'
-}]];
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -61,7 +60,8 @@ function Edit(_ref) {
     setAttributes
   } = _ref;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
-    tagName: "h2",
+    tagName: "h3",
+    id: attributes.title ? (0,_shared_Slugify_js__WEBPACK_IMPORTED_MODULE_4__["default"])(attributes.title) : null,
     value: attributes.title,
     allowedFormats: [],
     onChange: title => setAttributes({
@@ -144,6 +144,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _shared_Slugify_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/Slugify.js */ "../shared/Slugify.js");
 
 
 /**
@@ -158,6 +159,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
+
 
 
 /**
@@ -178,8 +180,32 @@ function save(_ref) {
     title
   } = attributes;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, {
+    tagName: "h3",
+    id: (0,_shared_Slugify_js__WEBPACK_IMPORTED_MODULE_3__["default"])(attributes.title),
     value: attributes.title
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, null));
+}
+
+/***/ }),
+
+/***/ "../shared/Slugify.js":
+/*!****************************!*\
+  !*** ../shared/Slugify.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Slugify)
+/* harmony export */ });
+function Slugify(text) {
+  return text.toString() // Cast to string (optional)
+  .normalize('NFKD') // The normalize() using NFKD method returns the Unicode Normalization Form of a given string.
+  .toLowerCase() // Convert the string to lowercase letters
+  .trim() // Remove whitespace from both sides of a string (optional)
+  .replace(/\s+/g, '-') // Replace spaces with -
+  .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+  .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 }
 
 /***/ }),
