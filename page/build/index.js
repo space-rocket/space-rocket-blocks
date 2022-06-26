@@ -324,6 +324,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Slugify_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Slugify.js */ "../shared/Slugify.js");
+
 
 
 
@@ -331,31 +333,62 @@ const SidebarTOC = _ref => {
   let {
     sections
   } = _ref;
-  let toc, section_links, sub_section_links;
+  let toc, section_links, sub_section_links, section_id, sub_section_id;
 
   if (sections.length) {
     section_links = sections.map((section, key) => {
+      section.attributes.title ? section_id = (0,_Slugify_js__WEBPACK_IMPORTED_MODULE_1__["default"])(section.attributes.title) : null;
+
       if (section.innerBlocks.length) {
         sub_section_links = section.innerBlocks.filter(block => {
           return block.name === "space-rocket-blocks/section";
         }).map((sub_section, sub_key) => {
+          sub_section.attributes.title ? sub_section_id = (0,_Slugify_js__WEBPACK_IMPORTED_MODULE_1__["default"])(sub_section.attributes.title) : null;
           return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
             key: sub_key
-          }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, sub_section.attributes.title));
+          }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+            tabindex: "0",
+            "data-id": sub_section_id
+          }, sub_section.attributes.title)));
         });
       }
 
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
         key: key
-      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, section.attributes.title, section.innerBlocks.length ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ol", null, sub_section_links) : null));
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+        tabindex: "0",
+        "data-id": section_id
+      }, section.attributes.title), section.innerBlocks.length ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ol", null, sub_section_links) : null));
     });
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, section_links));
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ol", null, section_links));
   } else {
     return null;
   }
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SidebarTOC);
+
+/***/ }),
+
+/***/ "../shared/Slugify.js":
+/*!****************************!*\
+  !*** ../shared/Slugify.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Slugify)
+/* harmony export */ });
+function Slugify(text) {
+  return text.toString() // Cast to string (optional)
+  .normalize('NFKD') // The normalize() using NFKD method returns the Unicode Normalization Form of a given string.
+  .toLowerCase() // Convert the string to lowercase letters
+  .trim() // Remove whitespace from both sides of a string (optional)
+  .replace(/\s+/g, '-') // Replace spaces with -
+  .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+  .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+}
 
 /***/ }),
 
