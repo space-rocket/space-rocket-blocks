@@ -21,6 +21,18 @@
     "sections": {
       "type": "array",
       "default": []
+    },
+    "author": {
+      "type": "object",
+      "default": ""
+    },
+    "postDate": {
+      "type": "string",
+      "default": ""
+    },
+    "postDateFormatted": {
+      "type": "string",
+      "default": ""
     }
   }
 }
